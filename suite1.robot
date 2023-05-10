@@ -9,6 +9,7 @@ ${mName}          The Shawshank Redemption
 
 
 
+
 *** Test Cases ***
 TC1
     Open Browser    https://www.imdb.com    Edge
@@ -42,21 +43,18 @@ TC2
     ${first_element}    Get From List    ${my_list}    0
     Should Contain    ${first_element}    ${mName}    ignore_case=True
 
-
 TC3
     Open Browser    https://www.imdb.com    Edge
     Maximize Browser Window
-
     Click Element    Xpath=//*[@id="nav-search-form"]/div[1]/div/label
-
     Click Link    Link=Advanced Search
-
     Click Link    Link=Advanced Title Search
     Click Element    id=title_type-1
     Click Element    id=genres-1
     Input Text    Xpath=//*[@id="main"]/div[3]/div[2]/input[1]    2010-01-01
     Input Text    Xpath=//*[@id="main"]/div[3]/div[2]/input[2]    2020-01-01
     Click Button    Search
+    Click Link    Link=User Rating
     @{elements}=    Get WebElements    css=.ratings-bar
     ${my_list}    Create List
     FOR    ${element}    IN    @{elements}
@@ -66,12 +64,8 @@ TC3
         Append To List    ${my_list}    ${temp}
     END
     ${Clist}    Copy List    ${my_list}
-    Sort List     ${Clist}
-    reverse list     ${Clist}
-    Lists Should Be Equal     ${Clist}    ${my_list}
-
-
-
-
+    Sort List    ${Clist}
+    reverse list    ${Clist}
+    Lists Should Be Equal    ${Clist}    ${my_list}
 
 
